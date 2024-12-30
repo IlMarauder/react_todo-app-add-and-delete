@@ -2,11 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
 import { Todo } from '../../types/Todo';
 import { USER_ID } from '../../api/todos';
+import { Errors } from '../../types/Errors';
 
 type Props = {
   todos: Todo[];
   onAdd: (newTodo: Todo) => Promise<void>;
-  setError: (error: string) => void;
+  setError: (error: Errors | null) => void;
   processing: number | undefined;
 };
 
@@ -27,7 +28,7 @@ export const TodoHeader: React.FC<Props> = ({
     event.preventDefault();
 
     if (!title.trim().length) {
-      setError('Title should not be empty');
+      setError(Errors.Empty);
 
       return;
     }

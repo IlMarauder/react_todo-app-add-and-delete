@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import cn from 'classnames';
+import { Errors } from '../../types/Errors';
 
 type Props = {
-  error: string;
-  setError: (error: string) => void;
+  error: Errors | null;
+  setError: (error: Errors | null) => void;
 };
 
 export const ErrorNotifications: React.FC<Props> = ({ error, setError }) => {
@@ -13,7 +14,7 @@ export const ErrorNotifications: React.FC<Props> = ({ error, setError }) => {
     }
 
     const timerId = setTimeout(() => {
-      setError('');
+      setError(null);
     }, 3000);
 
     return () => {
@@ -32,7 +33,7 @@ export const ErrorNotifications: React.FC<Props> = ({ error, setError }) => {
         data-cy="HideErrorButton"
         type="button"
         className="delete"
-        onClick={() => setError('')}
+        onClick={() => setError(null)}
       />
       {error}
     </div>
