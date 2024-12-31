@@ -8,7 +8,7 @@ import cn from 'classnames';
 type Props = {
   todo: Todo;
   onDelete: (todoId: number) => void;
-  processing: number | undefined;
+  processing: number;
 };
 
 export const TodoMain: React.FC<Props> = ({ todo, processing, onDelete }) => {

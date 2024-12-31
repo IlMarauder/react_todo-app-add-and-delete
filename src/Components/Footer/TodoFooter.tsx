@@ -19,9 +19,9 @@ export const TodoFooter: React.FC<Props> = ({
   onDelete,
 }) => {
   const deleteAllCompleted = () => {
-    const todosIds = todos.filter(todo => todo.completed).map(todo => todo.id);
+    const completedTodos = todos.filter(todo => todo.completed);
 
-    return todosIds.map(todoId => onDelete(todoId));
+    return completedTodos.map(todo => onDelete(todo.id));
   };
 
   return (

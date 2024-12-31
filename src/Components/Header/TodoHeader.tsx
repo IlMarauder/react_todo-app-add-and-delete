@@ -8,7 +8,7 @@ type Props = {
   todos: Todo[];
   onAdd: (newTodo: Todo) => Promise<void>;
   setError: (error: Errors | null) => void;
-  processing: number | undefined;
+  processing: number;
 };
 
 export const TodoHeader: React.FC<Props> = ({
@@ -26,8 +26,9 @@ export const TodoHeader: React.FC<Props> = ({
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    const trimmedTitle = title.trim();
 
-    if (!title.trim().length) {
+    if (!trimmedTitle.length) {
       setError(Errors.Empty);
 
       return;
@@ -36,13 +37,13 @@ export const TodoHeader: React.FC<Props> = ({
     onAdd({
       id: 0,
       userId: USER_ID,
-      title: title.trim(),
+      title: trimmedTitle,
       completed: false,
     }).then(() => setTitle(''));
   };
 
   useEffect(() => {
-    if (inputRef.current && !processing) {
+    if (inputRef.current && processing === -1) {
       inputRef.current.focus();
     }
   }, [processing]);
@@ -66,7 +67,7 @@ export const TodoHeader: React.FC<Props> = ({
           ref={inputRef}
           value={title}
           onChange={handleTitleChange}
-          disabled={processing === 0 ? true : false}
+          disabled={processing !== -1}
         />
       </form>
     </header>

@@ -14,7 +14,7 @@ export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [filter, setFilter] = useState(Filter.All);
   const [errorMessage, setErrorMessage] = useState<Errors | null>(null);
-  const [processing, setProcessing] = useState<number | undefined>(undefined);
+  const [processing, setProcessing] = useState(-1);
   const [todosQuantity, setTodosQuantity] = useState(0);
 
   const AddTodo = useCallback(
@@ -46,7 +46,7 @@ export const App: React.FC = () => {
           });
           throw error;
         })
-        .finally(() => setProcessing(undefined));
+        .finally(() => setProcessing(-1));
     },
     [todosQuantity],
   );
@@ -73,7 +73,7 @@ export const App: React.FC = () => {
           setErrorMessage(Errors.Delete);
           throw error;
         })
-        .finally(() => setProcessing(undefined));
+        .finally(() => setProcessing(-1));
     },
     [todosQuantity],
   );
